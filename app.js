@@ -12,16 +12,19 @@ app.set("view engine", "ejs");
 // Schema Setup
 var campgroundSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 });
 
 var Campground = mongoose.model("Campground", campgroundSchema);
 
+// Create a Campground
 // Campground.create(
 //     {
 //         name: "Granite Hill",
-//         image:
-//             "https://assets.simpleviewinc.com/simpleview/image/fetch/c_fill,h_452,q_75,w_982/http://res.cloudinary.com/simpleview/image/upload/v1469218578/clients/lanecounty/constitution_grove_campground_by_natalie_inouye_417476ef-05c3-464d-99bd-032bb0ee0bd5.png"
+//         image: "https://farm1.staticflickr.com/60/215827008_6489cd30c3.jpg",
+//         description:
+//             "This is a huge granite hill, no bathrooms. No water. Beautiful Granite!"
 //     },
 //     function(err, campground) {
 //         if (err) {
@@ -38,6 +41,7 @@ app.get("/", (req, res) => {
     res.render("landing");
 });
 
+// INDEX
 // Campground Page (GET)
 app.get("/campgrounds", (req, res) => {
     // Get all campgrounds from DB
@@ -45,16 +49,18 @@ app.get("/campgrounds", (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            res.render("campgrounds", { campgrounds: allCampgrounds });
+            res.render("index", { campgrounds: allCampgrounds });
         }
     });
 });
 
+// CREATE
 // Campground Page (POST)
 app.post("/campgrounds", (req, res) => {
     var name = req.body.name;
     var image = req.body.image;
-    var newCampground = { name: name, image: image };
+    var desc = req.body.description;
+    var newCampground = { name: name, image: image, description: desc };
     // Create a new campground and save to DB
     Campground.create(newCampground, (err, newlyCreated) => {
         if (err) {
@@ -66,9 +72,24 @@ app.post("/campgrounds", (req, res) => {
     });
 });
 
+// NEW
 // Add Campground Page
 app.get("/campgrounds/new", (req, res) => {
     res.render("new.ejs");
+});
+
+// SHOW
+// Campground Show Page
+app.get("/campgrounds/:id", (req, res) => {
+    // Find campground with provided ID
+    Campground.findById(req.params.id, (err, foundCampground) => {
+        if (err) {
+            console.log(err);
+        } else {
+            // Render show template with that campground
+            res.render("show", { campground: foundCampground });
+        }
+    });
 });
 
 // Listen
