@@ -20,7 +20,9 @@ mongoose.connect("mongodb://localhost:27017/yelp_camp", {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
-seedDB();
+
+// Seed the database
+// seedDB();
 
 // Passport Configuration
 app.use(
