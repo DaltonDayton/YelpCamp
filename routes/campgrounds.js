@@ -94,11 +94,22 @@ router.put("/:id", (req, res) => {
 			if (err) {
 				res.redirect("/campgrounds");
 			} else {
+				// Redirect to the show page
 				res.redirect("/campgrounds/" + req.params.id);
 			}
 		}
 	);
-	// Redirect to the show page
+});
+
+// DESTROY Campground Route
+router.delete("/:id", (req, res) => {
+	Campground.findByIdAndRemove(req.params.id, err => {
+		if (err) {
+			res.redirect("/campgrounds");
+		} else {
+			res.redirect("/campgrounds");
+		}
+	});
 });
 
 function isLoggedIn(req, res, next) {
