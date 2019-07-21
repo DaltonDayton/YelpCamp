@@ -103,12 +103,12 @@ router.put("/:id", (req, res) => {
 
 // DESTROY Campground Route
 router.delete("/:id", (req, res) => {
-	Campground.findByIdAndRemove(req.params.id, err => {
-		if (err) {
-			res.redirect("/campgrounds");
-		} else {
-			res.redirect("/campgrounds");
-		}
+	Campground.findById(req.params.id, function(err, campground) {
+		if (err) return next(err);
+
+		campground.remove();
+		// req.flash("success", "Campground deleted successfully!");
+		res.redirect("/campgrounds");
 	});
 });
 
