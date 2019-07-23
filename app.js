@@ -57,7 +57,13 @@ app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-// Listen
-app.listen(3000, () => {
-	console.log("Server Initiated on port 3000.");
+// Listen Locally
+// app.listen(3000, () => {
+// 	console.log("Server Initiated on port 3000.");
+// });
+
+// Listen Heroku
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+	console.log(`Our app is running on port ${PORT}`);
 });
