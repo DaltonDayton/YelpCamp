@@ -2,27 +2,30 @@
 
 <div class="container">
 	<div class="row">
+		<!-- LEFT SIDE CONTENT -->
 		<div class="col-md-3">
-			<p class="lead">Yelp Camp</p>
-			<div class="list-group">
-				<li class="list-group-item active">Info 1</li>
-				<li class="list-group-item">Info 2</li>
-				<li class="list-group-item">Info 3</li>
-			</div>
+			<div id="map"></div>
 		</div>
+		<!-- MAIN CONTENT -->
 		<div class="col-md-9">
-			<div class="thumbnail">
-				<img class="img-responsive" src="<%= campground.image %>" />
-				<div class="caption caption-full">
-					<h4 class="pull-right">$<%= campground.price %>/night</h4>
-					<h4><a href="#"><%= campground.name %></a></h4>
-					<p><%= campground.description %></p>
+			<!-- CAMPGROUND CARD -->
+			<div class="card mb-3">
+				<img
+					src="<%= campground.image %>"
+					class="card-img-top"
+					alt="<%= campground.name %>"
+				/>
+				<div class="card-body">
+					<p class="float-right">$<%= campground.price %>/night</p>
+					<h5 class="card-title"><%= campground.name %></h5>
 					<p>
 						<em>Submitted By <%= campground.author.username %></em>
 					</p>
+					<hr />
+					<p class="card-text"><%= campground.description %></p>
 					<% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
 					<a
-						class="btn btn-xs btn-warning"
+						class="btn btn-sm btn-warning"
 						href="/campgrounds/<%= campground._id %>/edit"
 						>Edit</a
 					>
@@ -31,50 +34,65 @@
 						action="/campgrounds/<%= campground._id %>?_method=DELETE"
 						method="POST"
 					>
-						<button class="btn btn-xs btn-danger">Delete</button>
+						<button class="btn btn-sm btn-danger">Delete</button>
 					</form>
 					<% } %>
 				</div>
 			</div>
-			<div class="well">
-				<div class="text-right">
-					<a
-						class="btn btn-success"
-						href="/campgrounds/<%= campground._id %>/comments/new"
-						>Add New Comment</a
-					>
-				</div>
-				<hr />
-				<% campground.comments.forEach((comment)=>{ %>
-				<div class="row">
-					<div class="col-md-12">
-						<strong><u><%= comment.author.username %></u></strong>
-						<span class="pull-right">10 days ago</span>
-						<p>
-							<%= comment.text %>
-						</p>
-						<% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+			<!-- COMMENTS -->
+			<div class="card">
+				<div class="card-body">
+					<!-- ADD NEW COMMENT BUTTON -->
+					<div class="text-right">
 						<a
-							href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit"
-							class="btn btn-xs btn-warning"
-							>Edit</a
+							class="btn btn-success"
+							href="/campgrounds/<%= campground._id %>/comments/new"
+							>Add New Comment</a
 						>
-						<form
-							action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
-							method="POST"
-							class="delete-form"
-						>
-							<input
-								type="submit"
-								class="btn btn-xs btn-danger"
-								value="Delete"
-							/>
-						</form>
-						<% } %>
+					</div>
+					<hr />
+					<!-- COMMENT LIST SECTION -->
+					<div class="row">
+						<!-- FOREACH FOR COMMENT LIST -->
+						<% campground.comments.forEach((comment)=>{ %>
+						<div class="col-md-12">
+							<div class="card mt-2">
+								<div class="card-body">
+									<div class="float-left">
+										<strong><u><%= comment.author.username %></u></strong>
+										<p class="card-text"><%= comment.text %></p>
+									</div>
+									<div class="float-right">
+										<p><span class="">10 days ago</span></p>
+										<!-- IF LOGGED IN AND OWNS COMMENT, SHOW BUTTONS -->
+										<% if(currentUser &&
+										comment.author.id.equals(currentUser._id)){ %>
+										<a
+											href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit"
+											class="btn btn-sm btn-warning "
+											>Edit</a
+										>
+										<form
+											action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+											method="POST"
+											class="delete-form"
+										>
+											<input
+												type="submit"
+												class="btn btn-sm btn-danger "
+												value="Delete"
+											/>
+										</form>
+										<% } %>
+									</div>
+								</div>
+							</div>
+						</div>
+						<% }) %>
 					</div>
 				</div>
-				<% }) %>
 			</div>
+			<!-- END COMMENTS -->
 		</div>
 	</div>
 </div>
