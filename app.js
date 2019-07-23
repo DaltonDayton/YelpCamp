@@ -18,23 +18,23 @@ var commentRoutes = require("./routes/comments"),
 
 // mongodb+srv://DaltonDayton:yushien12@cluster0-nh5xb.mongodb.net/test?retryWrites=true&w=majority
 // Cloud MongoDB Atlas
-mongoose.connect(
-	"mongodb+srv://DaltonDayton:yushien12@cluster0-nh5xb.mongodb.net/yelp_camp?retryWrites=true&w=majority",
-	{
-		// https://mongoosejs.com/docs/deprecations.html
-		useNewUrlParser: true,
-		useFindAndModify: false,
-		useCreateIndex: true
-	}
-);
+// mongoose.connect(
+// 	"mongodb+srv://DaltonDayton:yushien12@cluster0-nh5xb.mongodb.net/yelp_camp?retryWrites=true&w=majority",
+// 	{
+// 		// https://mongoosejs.com/docs/deprecations.html
+// 		useNewUrlParser: true,
+// 		useFindAndModify: false,
+// 		useCreateIndex: true
+// 	}
+// );
 
 // Local MongoDB
-// mongoose.connect("mongodb://localhost:27017/yelp_camp", {
-// 	// https://mongoosejs.com/docs/deprecations.html
-// 	useNewUrlParser: true,
-// 	useFindAndModify: false,
-// 	useCreateIndex: true
-// });
+mongoose.connect(process.env.DATABASEURL, {
+	// https://mongoosejs.com/docs/deprecations.html
+	useNewUrlParser: true,
+	useFindAndModify: false,
+	useCreateIndex: true
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
