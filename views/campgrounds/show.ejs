@@ -16,7 +16,7 @@
 					alt="<%= campground.name %>"
 				/>
 				<div class="card-body">
-					<p class="float-right">$<%= campground.price %>/night</p>
+					<p class="float-right">$<%= campground.price.toFixed(2) %>/night</p>
 					<h5 class="card-title"><%= campground.name %></h5>
 					<p>
 						<em>Submitted By <%= campground.author.username %></em>
