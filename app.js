@@ -16,20 +16,10 @@ var commentRoutes = require("./routes/comments"),
 	campgroundRoutes = require("./routes/campgrounds"),
 	indexRoutes = require("./routes/index");
 
-// mongodb+srv://DaltonDayton:yushien12@cluster0-nh5xb.mongodb.net/test?retryWrites=true&w=majority
-// Cloud MongoDB Atlas
-// mongoose.connect(
-// 	"mongodb+srv://DaltonDayton:yushien12@cluster0-nh5xb.mongodb.net/yelp_camp?retryWrites=true&w=majority",
-// 	{
-// 		// https://mongoosejs.com/docs/deprecations.html
-// 		useNewUrlParser: true,
-// 		useFindAndModify: false,
-// 		useCreateIndex: true
-// 	}
-// );
-
-// Local MongoDB
-mongoose.connect(process.env.DATABASEURL, {
+// Backup DB url
+var url = process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp";
+// MongoDB connect. Local DB in dev. MongoDB Atlas in production
+mongoose.connect(url, {
 	// https://mongoosejs.com/docs/deprecations.html
 	useNewUrlParser: true,
 	useFindAndModify: false,
