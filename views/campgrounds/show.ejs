@@ -23,7 +23,7 @@
 					</p>
 					<hr />
 					<p class="card-text"><%= campground.description %></p>
-					<% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
+					<% if(currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 					<a
 						class="btn btn-sm btn-warning"
 						href="/campgrounds/<%= campground._id %>/edit"
@@ -65,8 +65,7 @@
 									<div class="float-right">
 										<p><span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span></p>
 										<!-- IF LOGGED IN AND OWNS COMMENT, SHOW BUTTONS -->
-										<% if(currentUser &&
-										comment.author.id.equals(currentUser._id)){ %>
+										<% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 										<a
 											href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit"
 											class="btn btn-sm btn-warning "
