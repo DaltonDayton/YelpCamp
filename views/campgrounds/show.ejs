@@ -19,7 +19,7 @@
 					<p class="float-right">$<%= campground.price.toFixed(2) %>/night</p>
 					<h5 class="card-title"><%= campground.name %></h5>
 					<p>
-						<em>Submitted By <%= campground.author.username %></em>
+						<em>Submitted By <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em>
 					</p>
 					<hr />
 					<p class="card-text"><%= campground.description %></p>
@@ -63,7 +63,7 @@
 										<p class="card-text"><%= comment.text %></p>
 									</div>
 									<div class="float-right">
-										<p><span class="">10 days ago</span></p>
+										<p><span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span></p>
 										<!-- IF LOGGED IN AND OWNS COMMENT, SHOW BUTTONS -->
 										<% if(currentUser &&
 										comment.author.id.equals(currentUser._id)){ %>
