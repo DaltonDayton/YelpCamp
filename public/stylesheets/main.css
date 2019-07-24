@@ -5,8 +5,13 @@
 .thumbnail {
 	padding: 0;
 }
+
 .delete-form {
 	display: inline;
+}
+
+.titleCase {
+	text-transform: capitalize;
 }
 
 /* FORM CSS */

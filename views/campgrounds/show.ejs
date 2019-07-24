@@ -19,11 +19,18 @@
 					<p class="float-right">$<%= campground.price.toFixed(2) %>/night</p>
 					<h5 class="card-title"><%= campground.name %></h5>
 					<p>
-						<em>Submitted By <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em>
+						<em>
+							Submitted By
+							<span class="titleCase">
+								<%= campground.author.username %>
+							</span>
+							, <%= moment(campground.createdAt).fromNow() %>
+						</em>
 					</p>
 					<hr />
 					<p class="card-text"><%= campground.description %></p>
-					<% if(currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+					<% if(currentUser && campground.author.id.equals(currentUser._id) ||
+					currentUser && currentUser.isAdmin){ %>
 					<a
 						class="btn btn-sm btn-warning"
 						href="/campgrounds/<%= campground._id %>/edit"
@@ -59,13 +66,21 @@
 							<div class="card mt-2">
 								<div class="card-body">
 									<div class="float-left">
-										<strong><u><%= comment.author.username %></u></strong>
+										<strong>
+											<u class="titleCase"><%= comment.author.username %></u>
+										</strong>
 										<p class="card-text"><%= comment.text %></p>
 									</div>
 									<div class="float-right">
-										<p><span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span></p>
+										<p>
+											<span class="pull-right">
+												<%= moment(comment.createdAt).fromNow() %>
+											</span>
+										</p>
 										<!-- IF LOGGED IN AND OWNS COMMENT, SHOW BUTTONS -->
-										<% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+										<% if(currentUser &&
+										comment.author.id.equals(currentUser._id) || currentUser &&
+										currentUser.isAdmin){ %>
 										<a
 											href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit"
 											class="btn btn-sm btn-warning "
